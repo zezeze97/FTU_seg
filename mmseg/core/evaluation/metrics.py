@@ -71,9 +71,22 @@ def intersect_and_union(pred_label,
         label = label - 1
         label[label == 254] = 255
     area_intersect = []; area_union = []; area_pred_label = []; area_label = []
-    for i in range(num_classes):
-        class_pred_label = pred_label[:,:,i]
-        class_label = label[:,:,i]
+    if num_classes != 1:
+        for i in range(num_classes):
+            class_pred_label = pred_label[:,:,i]
+            class_label = label[:,:,i]
+            intersect = class_pred_label[class_pred_label == class_label]
+            class_area_intersect = intersect.sum()
+            class_area_pred_label =class_pred_label.sum()
+            class_area_label = class_label.sum()
+            class_area_union = class_area_pred_label + class_area_label - class_area_intersect
+            area_intersect.append(class_area_intersect)
+            area_union.append(class_area_union)
+            area_pred_label.append(class_area_pred_label)
+            area_label.append(class_area_label)
+    else:
+        class_pred_label = pred_label[:,:,0]
+        class_label = label
         intersect = class_pred_label[class_pred_label == class_label]
         class_area_intersect = intersect.sum()
         class_area_pred_label =class_pred_label.sum()
@@ -83,6 +96,7 @@ def intersect_and_union(pred_label,
         area_union.append(class_area_union)
         area_pred_label.append(class_area_pred_label)
         area_label.append(class_area_label)
+
     area_intersect = torch.FloatTensor(area_intersect)
     area_union = torch.FloatTensor(area_union)
     area_pred_label = torch.FloatTensor(area_pred_label)

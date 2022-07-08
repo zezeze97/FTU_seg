@@ -17,10 +17,6 @@ from mmcv.utils import print_log
 class Kaggle_Dataset(CustomDataset):
     """Kaggle_Dataset.
     """
-    CLASSES = ('large_bowel', 'small_bowel', 'stomach')
-
-    PALETTE = [[64,64,64],[128,128,128], [255,255,255]]
-
     def __init__(self, **kwargs):
         super(Kaggle_Dataset, self).__init__(
             **kwargs)
@@ -70,7 +66,7 @@ class Kaggle_Dataset(CustomDataset):
         """
         if isinstance(metric, str):
             metric = [metric]
-        allowed_metrics = ['mIoU', 'mDice', 'mFscore', 'imDice', 'imIoU', 'imFscore']
+        allowed_metrics = ['mIoU', 'mDice', 'mFscore']
         if not set(metric).issubset(set(allowed_metrics)):
             raise KeyError('metric {} is not supported'.format(metric))
 

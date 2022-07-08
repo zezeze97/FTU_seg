@@ -21,7 +21,7 @@ conda activate mmseg-kaggle
 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 
 pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11.0/index.html
-
+pip install segmentation_models_pytorch
 git clone https://github.com/zezeze97/kaggle_segmentation.git
 
 cd {path of project}
