@@ -122,7 +122,7 @@ log_config = dict(
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 load_from = None
-resume_from = None
+resume_from = 'cache/upernet_convnext_base_fp16_512x512_160k_FTU/iter_92800.pth'
 workflow = [('train', 1)]
 cudnn_benchmark = True
 optimizer = dict(
@@ -142,7 +142,7 @@ lr_config = dict(
     min_lr=0.0,
     by_epoch=False)
 runner = dict(type='IterBasedRunner', max_iters=160000)
-checkpoint_config = dict(by_epoch=False, interval=1600, max_keep_ckpts=1)
-evaluation = dict(interval=1600, metric='mDice', pre_eval=True, save_best='mDice')
+checkpoint_config = dict(by_epoch=False, interval=16000, max_keep_ckpts=1)
+evaluation = dict(interval=16000, metric='mDice', pre_eval=True, save_best='mDice')
 fp16 = dict()
 auto_resume = False

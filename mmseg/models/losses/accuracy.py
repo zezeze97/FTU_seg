@@ -31,6 +31,9 @@ def accuracy(pred, target, topk=1, thresh=None, ignore_index=None):
         return_single = False
 
     maxk = max(topk)
+    # debug when num_class=1
+    if pred.size(1) == 1:
+        pred = pred.squeeze(1)
     if pred.size(0) == 0:
         accu = [pred.new_tensor(0.) for i in range(len(topk))]
         return accu[0] if return_single else accu
