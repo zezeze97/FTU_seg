@@ -1,12 +1,9 @@
 # Kaggle 比赛
 
-该仓库用于[UW-Madison GI Tract Image Segmentation](https://www.kaggle.com/competitions/uw-madison-gi-tract-image-segmentation/overview)比赛
+该仓库用于[HuBMAP + HPA - Hacking the Human Body](https://www.kaggle.com/competitions/hubmap-organ-segmentation)比赛
 
 # 数据集探索
 
-[参考](https://www.kaggle.com/code/andradaolteanu/aw-madison-eda-in-depth-mask-exploration)
-
-{0: {0: 0.9931173288276431, 1: 0.0068826711723568796, 'ratio': 144.29242716350245}, 1: {0: 0.9936987980163507, 1: 0.006301201983649225, 'ratio': 157.69988021251598}, 2: {0: 0.9965100078185938, 1: 0.0034899921814062367, 'ratio': 285.53359320623633}}
 
 # 环境安装
 
@@ -32,7 +29,7 @@ pip install -e .
 
 # 数据集下载，预处理
 
-从官网下载好数据集后，放在该项目的input目录下，运行[kaggle_segmentation/prepare_data.ipynb](kaggle_segmentation/prepare_data.ipynb)
+从官网下载好数据集后，放在该项目的data目录下，运行[kaggle_segmentation/eda_mask.ipynb](kaggle_segmentation/eda_mask.ipynb)
 
 # 训练，测试
 
@@ -53,16 +50,12 @@ bash run.sh test$GPU
 [kaggle_segmentation/inference_demo.ipynb](kaggle_segmentation/inference_demo.ipynb)
 
 # Note
-
-- 2.5d data: 同一个case，同日的3张slice拼接成一张(stride=2)
-- mutilabel问题，最后激活使用sigmoid而不是softmax!!
+- 虽然有多个类别，但是比赛只要求区分FTU，我先处理成2分类问题
+- 使用multilabel segmentor, 最后的激活用sigmoid而不是softmax
+- 图片分辨率很大3000x3000, 使用slide模式进行inference，而不是whole!
+- baseline使用的convnext-base
 
 # TODO
-
-- 图片case的相关性，更好的建模方式？
-- 图片尺寸较小, 可以尝试upernet origin size?(默认1/4大小)
 - 实验结果整理
 - 增加smp unet decoder 移植 https://github.com/CarnoZhao/Kaggle-UWMGIT/blob/kaggle_tractseg/mmseg/models/segmentors/smp_models.py
-- swin transformer v2
-- 更好的数据增强方式:https://www.kaggle.com/competitions/uw-madison-gi-tract-image-segmentation/discussion/331450
-- 5张slice拼接成一张，需要修改pretrained ckpts的第一层...
+
