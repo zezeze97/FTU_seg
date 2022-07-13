@@ -116,11 +116,12 @@ class DiceLoss(nn.Module):
                 num_classes=num_classes)
         else:
             pred = torch.sigmoid(pred)
-            if len(target.shape) == 3:
-                target = target.unsqueeze(1)
-
             num_classes = pred.shape[1]
-            one_hot_target = torch.clamp(target.long(), 0, num_classes - 1).permute(0,2,3,1)
+            if num_classes != 1:
+                one_hot_target = torch.clamp(target.long(), 0, num_classes - 1).permute(0,2,3,1)
+            else:
+                target = target.unsqueeze(1)
+                one_hot_target = target.long().permute(0,2,3,1)
 
         valid_mask = (target != self.ignore_index).long()
 
