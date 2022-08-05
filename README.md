@@ -57,5 +57,4 @@ bash run.sh test$GPU
 
 # TODO
 - 实验结果整理
-- 增加smp unet decoder 移植 https://github.com/CarnoZhao/Kaggle-UWMGIT/blob/kaggle_tractseg/mmseg/models/segmentors/smp_models.py
-
+- Multi Class Dateset
